@@ -1,15 +1,14 @@
 import pandas as pd
 import snowflake.connector
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-load_dotenv()
-username = os.getenv('SNOWFLAKE_USERNAME')
-password = os.getenv('SNOWFLAKE_PASSWORD')
-account = os.getenv('SNOWFLAKE_ACCOUNT')
+username = st.secrets["SNOWFLAKE_USERNAME"]
+password = st.secrets["SNOWFLAKE_PASSWORD"]
+account = st.secrets["SNOWFLAKE_ACCOUNT"]
 warehouse = 'Book_WAREHOUSE'
 database = 'book_db'
 schema = 'book_schema'
