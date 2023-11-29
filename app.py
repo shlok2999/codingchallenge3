@@ -39,6 +39,42 @@ print(df.head())
 # Set the title of the app
 st.title("Book Dashboard Using Streamlit")
 
+# Add a selectbox in the sidebar for sorting
+sort_option = st.sidebar.selectbox(
+    "Sort books by:",
+    ("Price", "Rating")
+)
+
+# Sort dataframe based on the selected option
+if sort_option == "Price":
+    df = df.sort_values("PRICE", ascending=False)
+elif sort_option == "Rating":
+    df = df.sort_values("RATING", ascending=False)
+
+# Add a slider in the sidebar for filtering books based on price
+price_range = st.sidebar.slider(
+    "Filter books by price:",
+    int(df["PRICE"].min()), 
+    int(df["PRICE"].max()), 
+    (int(df["PRICE"].min()), int(df["PRICE"].max()))
+)
+
+# Filter dataframe based on the selected price range
+df = df[(df["PRICE"] >= price_range[0]) & (df["PRICE"] <= price_range[1])]
+
+# Add a slider in the sidebar for filtering books based on rating
+rating_range = st.sidebar.slider(
+    "Filter books by rating:",
+    float(df["RATING"].min()), 
+    float(df["RATING"].max()), 
+    (float(df["RATING"].min()), float(df["RATING"].max()))
+)
+
+# Filter dataframe based on the selected rating range
+df = df[(df["RATING"] >= rating_range[0]) & (df["RATING"] <= rating_range[1])]
+
+
+
 # Calculate KPIs
 num_books = len(df)
 avg_price = df['PRICE'].mean()
